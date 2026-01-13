@@ -34,7 +34,8 @@ function App() {
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (err) {
-      setError('Something went wrong. Please try again.');
+      console.error("AI ERROR:", err)
+      setError(err.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -45,8 +46,8 @@ function App() {
       <Sidebar />
       <div className="main-content">
         <ChatWindow messages={messages} loading={loading} />
-        <InputBox onSend={sendMessage} loading={loading} />
         {error && <div className="error">{error}</div>}
+        <InputBox onSend={sendMessage} loading={loading} />
       </div>
     </div>
   );
