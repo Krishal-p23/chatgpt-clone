@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function InputBox({ onSend }) {
+export default function InputBox({ onSend, loading }) {
     const [input, setInput] = useState('');
 
     const handleSend = () => {
@@ -22,7 +22,8 @@ export default function InputBox({ onSend }) {
     value={input}
     onChange={(e) => setInput(e.target.value)}
     onKeyDown={handleKeyDown}
-    placeholder='Send a message...'
+    diasabled={loading}
+    placeholder={loading ? "AI is responding..." : "Send a message..."}
     className="input-box"/>
   );
 }
