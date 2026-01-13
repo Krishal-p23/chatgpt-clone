@@ -18,7 +18,7 @@ export default function ChatWindow({ messages, loading }) {
           <em>AI is typing...</em>
         </div>
       )}
-      
+
       <div ref={bottomRef} />
     </div>
   );
