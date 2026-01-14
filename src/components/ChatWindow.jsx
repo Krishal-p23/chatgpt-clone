@@ -10,14 +10,21 @@ export default function ChatWindow({ messages, loading }) {
 
   return (
     <div className="chat-window">
-      {messages.map((msg) => (
-        <Message key={msg.id} message={msg} />
-      ))}
-      {loading && (
-        <div className="message assistant">
-          <em>AI is typing...</em>
-        </div>
-      )}
+      <div className="chat-container">
+        {messages.map((msg) => (
+          <Message
+            key={msg.id}
+            message={msg} />
+        ))}
+
+        {loading && (
+          <div className="message assistant">
+            <div className='bubble'>
+              <em>AI is typing...</em>
+            </div>
+          </div>
+        )}
+      </div>
 
       <div ref={bottomRef} />
     </div>

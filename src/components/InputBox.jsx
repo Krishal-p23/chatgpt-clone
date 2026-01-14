@@ -18,12 +18,17 @@ export default function InputBox({ onSend, loading }) {
   }
 
   return (
-    <textarea
-      value={input}
-      onChange={(e) => setInput(e.target.value)}
-      onKeyDown={handleKeyDown}
-      diasabled={loading}
-      placeholder={loading ? "AI is responding..." : "Send a message..."}
-      className="input-box" />
+    <>
+      <div className="input-container">
+        <div className="input-box">
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            diasabled={loading}
+            placeholder={loading ? "AI is responding..." : "Send a message..."} />
+        </div>
+      </div>
+    </>
   );
 }
