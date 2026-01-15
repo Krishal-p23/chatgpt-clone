@@ -37,6 +37,7 @@ body,
   flex-shrink: 0;
 }
 
+/* NEW CHAT BUTTON */
 .new-chat-btn {
   background-color: #343541;
   border: 1px solid #4d4d4f;
@@ -51,7 +52,30 @@ body,
   background-color: #40414f;
 }
 
+/* DELETE CHAT ITEM */
+.delete-btn {
+  background: none;
+  border: none;
+  color: #9a9b9f;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 6px;
+  visibility: hidden;
+}
+
+.chat-item:hover .delete-btn {
+  visibility: visible;
+}
+
+.delete-btn:hover {
+  color: #ff6b6b;
+}
+
+/* CHAT LIST */
 .chat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 10px;
   border-radius: 6px;
   cursor: pointer;
@@ -154,13 +178,16 @@ body,
 /* INPUT BOX */
 .input-container {
   padding: 16px;
+  width: 100%;
   border-top: 1px solid #4d4d4f;
   background-color: #343541;
 }
 
 .input-box {
   display: flex;
+  max-width: 70%;
   gap: 12px;
+  margin: 0 auto;
 }
 
 .input-box textarea {

@@ -22,6 +22,28 @@ function App() {
     setActiveID(newChat.id);
   }
 
+  const deleteChat = (chatId) => {
+    setConversations((prev) => {
+      const filtered = prev.filter(c => c.id !== chatId);
+
+      if (chatId === activeID) {
+        if (filtered.length > 0) {
+          setActiveID(filtered[0].id);
+        } else {
+          const defaultChat = {
+            id: crypto.randomUUID(),
+            title: "New Chat",
+            messages: [],
+            createdAt: new Date()
+          };
+          setActiveID(defaultChat.id);
+          return [defaultChat];
+        }
+      }
+      return filtered;
+    });
+  }
+
   useEffect(() => {
     const stored = localStorage.getItem("chat_conversations");
 
@@ -122,7 +144,8 @@ function App() {
         conversations={conversations}
         activeId={activeID}
         onSelect={setActiveID}
-        onNewChat={createNewChat} />
+        onNewChat={createNewChat}
+        onDelete={deleteChat} />
 
       <div className="main-content">
         <ChatWindow messages={messages} loading={loading} />

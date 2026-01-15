@@ -1,4 +1,10 @@
-export default function Sidebar({ conversations, activeId, onSelect, onNewChat }) {
+export default function Sidebar({
+  conversations,
+  activeId,
+  onSelect,
+  onNewChat,
+  onDelete,
+}) {
   return (
     <div className="sidebar">
       <button className="new-chat-btn" onClick={onNewChat}>
@@ -9,7 +15,7 @@ export default function Sidebar({ conversations, activeId, onSelect, onNewChat }
         <div className="empty-sidebar">No chats yet</div>
       )}
 
-      {conversations.map(chat => (
+      {conversations.map((chat) => (
         <div
           key={chat.id}
           className={`chat-item ${chat.id === activeId ? "active" : ""}`}
@@ -18,9 +24,22 @@ export default function Sidebar({ conversations, activeId, onSelect, onNewChat }
           tabIndex={0}
           onKeyDown={(e) => e.key === "Enter" && onSelect(chat.id)}
         >
-          {chat.title.length > 30
-            ? chat.title.slice(0, 30) + "…"
-            : chat.title}
+          <span className="chat-title">
+            {chat.title.length > 30
+              ? `${chat.title.slice(0, 30)}…`
+              : chat.title}
+          </span>
+
+          <button
+            className="delete-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete(chat.id);
+            }}
+            aria-label="Delete chat"
+          >
+            ×
+          </button>
         </div>
       ))}
     </div>
