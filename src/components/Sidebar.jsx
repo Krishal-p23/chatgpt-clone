@@ -8,7 +8,8 @@ export default function Sidebar({
   return (
     <div className="sidebar">
       <button className="new-chat-btn" onClick={onNewChat}>
-        + New Chat
+        <span className="new-chat-icon">+</span>
+        <span>New Chat</span >
       </button>
 
       {conversations.length === 0 && (
