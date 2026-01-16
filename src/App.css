@@ -88,33 +88,33 @@ body,
 
 /* SIDEBAR */
 .sidebar {
+  height: 100vh;
   width: 260px;
   background-color: #171717;
-  /* ChatGPT sidebar */
   padding: 8px;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   border-right: 1px solid #2f2f35;
   overflow-y: auto;
-  scrollbar-width: none;
-  transition: width 0.2s ease;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar.collapsed {
   width: 72px;
 }
 
-.sidebar::-webkit-scrollbar {
-  display: none;
-}
-
 .sidebar-header-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 8px;
-  margin-bottom: 8px;
+  padding: 2px 8px;
+  flex-shrink: 0;
+  transition: box-shadow 0.2s ease, border-bottom 0.2s ease;
+}
+
+.sidebar-header-row.scrolled {
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .sidebar-header {
@@ -135,21 +135,27 @@ body,
   margin-bottom: 4px;
 }
 
-.sidebar.collapsed .sidebar-header {
-  display: none;
-}
-
 .sidebar.collapsed .sidebar-header-row {
   justify-content: center;
 }
 
+.sidebar.collapsed .sidebar-header,
 .sidebar.collapsed .new-chat-btn span:not(.new-chat-icon) {
   display: none;
 }
 
-.sidebar.collapsed .new-chat-btn {
-  justify-content: center;
-  padding: 10px;
+.sidebar-contents {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  scrollbar-width: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.sidebar.collapsed .sidebar-content {
+  opacity: 0;
+  transform: translateX(-8px);
+  pointer-events: none;
 }
 
 /* NEW CHAT BUTTON */
@@ -157,14 +163,11 @@ body,
   display: flex;
   align-items: center;
   gap: 10px;
-
   width: 100%;
   padding: 10px 12px;
-
   background-color: transparent;
   border: 1px solid #2f2f35;
   border-radius: 8px;
-
   color: #ececf1;
   font-size: 14px;
   font-weight: 500;
@@ -181,10 +184,8 @@ body,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   width: 18px;
   height: 18px;
-
   border-radius: 4px;
   font-size: 16px;
   line-height: 1;
@@ -197,6 +198,11 @@ body,
 .new-chat-btn:focus-visible {
   outline: 2px solid #3a3b44;
   outline-offset: 2px;
+}
+
+.sidebar.collapsed .new-chat-btn {
+  justify-content: center;
+  padding: 10px;
 }
 
 /* DELETE CHAT ITEM */
@@ -225,7 +231,7 @@ body,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
+  padding: 6px 12px;
   border-radius: 8px;
   cursor: pointer;
   margin-bottom: 2px;
@@ -254,6 +260,15 @@ body,
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.chat-item {
+  transition: opacity 0.15s ease;
+}
+
+.sidebar.collapsed .chat-item {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* MAIN CONTENT */
