@@ -4,9 +4,17 @@ export default function Sidebar({
   onSelect,
   onNewChat,
   onDelete,
+  isCollapsed,
+  onToggle,
 }) {
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
+      <div className="sidebar-header-row">
+        <span className="sidebar-header">My GPT</span>
+        <button className="sidebar-toggle" onClick={onToggle} aria-label="Toggle sidebar">
+          ☰
+        </button>
+      </div>
       <button className="new-chat-btn" onClick={onNewChat}>
         <span className="new-chat-icon">+</span>
         <span>New Chat</span >
@@ -39,7 +47,7 @@ export default function Sidebar({
             }}
             aria-label="Delete chat"
           >
-            ×
+            🗑
           </button>
         </div>
       ))}

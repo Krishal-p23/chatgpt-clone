@@ -10,6 +10,11 @@ function App() {
   const [activeID, setActiveID] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarCollapsed(prev => !prev);
+  }
 
   const createNewChat = () => {
     const newChat = {
@@ -145,7 +150,9 @@ function App() {
         activeId={activeID}
         onSelect={setActiveID}
         onNewChat={createNewChat}
-        onDelete={deleteChat} />
+        onDelete={deleteChat}
+        isCollapsed={isSidebarCollapsed}
+        onToggle={toggleSidebar} />
 
       <div className="main-content">
         <ChatWindow messages={messages} loading={loading} />
