@@ -9,7 +9,7 @@
 
   /* Assistant */
   --bg-assistant-row: transparent;
-  --bg-assistant-bubble: #1f1f22;
+  --bg-assistant-bubble: transparent;
 
   /* User */
   --bg-user-bubble: #343541;
@@ -142,8 +142,8 @@ body,
   font-weight: 600;
   color: #ececf1;
   background-color: inherit;
-  transition: opacity 0.15s ease, 
-              transform 0.15s ease;
+  transition: opacity 0.15s ease,
+    transform 0.15s ease;
 }
 
 .sidebar.collapsed .sidebar-header-row {
@@ -174,11 +174,10 @@ body,
   flex-shrink: 0;
   padding: 8px;
   border-top: 1px solid transparent;
-  background-color: var(--bg-sidebar);
   overflow: hidden;
-  transition: border-color 0.2s ease, 
-              opacity 0.18s ease, 
-              transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 0.2s ease,
+    opacity 0.18s ease,
+    transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar:not(.collapsed) .sidebar-footer {
@@ -208,7 +207,8 @@ body,
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: #10a37f; /* ChatGPT green */
+  background-color: #10a37f;
+  /* ChatGPT green */
   color: #ffffff;
   font-weight: 600;
   display: flex;
@@ -346,8 +346,8 @@ body,
 }
 
 .new-chat-label {
-  transition: opacity 0.15s ease, 
-              transform 0.15s ease;
+  transition: opacity 0.15s ease,
+    transform 0.15s ease;
   white-space: nowrap;
 
 }
@@ -444,10 +444,17 @@ body,
 
 /* CHAT WINDOW */
 .chat-window {
+  position: relative;
   flex: 1;
   overflow-y: auto;
   padding: 24px 16px;
   background: var(--bg-chat);
+}
+
+.chat-window::after {
+  content: "";
+  display: block;
+  height: 88px;
 }
 
 /* CHAT CONTAINER */
@@ -510,34 +517,64 @@ body,
   border-radius: 16px 16px 16px 4px;
 }
 
-/* INPUT BOX */
-.input-container {
-  padding: 16px;
-  width: 70%;
-  margin: 0 auto;
+/* INPUT MASK */
+.input-mask {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  padding-top: 24px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  background: linear-gradient(to top,
+      rgba(15, 15, 17, 1) 0%,
+      rgba(15, 15, 17, 1) 55%,
+      rgba(15, 15, 17, 0.95) 70%,
+      rgba(15, 15, 17, 0.6) 85%,
+      rgba(15, 15, 17, 0) 100%);
 }
 
+/* INPUT BOX */
 .input-box {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 720px;
+  background-color: #1e1f22;
+  border-radius: 26px;
+  padding: 5px 12px 6px 16px;
   display: flex;
-  gap: 12px;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: auto;
+  position: relative;
+  z-index: 2;
+  border: 1px solid #2f2f35;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2),
+              0 8px 20px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .input-box textarea {
   flex: 1;
   resize: none;
-  background-color: var(--bg-input);
-  color: var(--text-input);
   border: none;
-  border-radius: 25px;
-  padding: 12px;
-  font-size: 15px;
-  font-family: inherit;
   outline: none;
-  height: 48px;
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 15px;
+  line-height: 1.4;
+  padding: 5px 0 6px 0;
+  font-family: inherit;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .input-box textarea::placeholder {
-  color: #9a9b9f;
+  color: #9ca3af;
+}
+
+.input-box textarea::-webkit-scrollbar {
+  width: 0;
 }
 
 .input-box button {
@@ -550,11 +587,34 @@ body,
   color: #000;
 }
 
-.input-box button:disabled {
-  background-color: #555;
-  /* doesn't match theme pallette */
+/* SEND BUTTON */
+.send-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background-color: #4f46e5;
+  color: white;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.send-btn:disabled {
+  background-color: #2f2f35;
+  color: #6b7280;
   cursor: not-allowed;
 }
+
+.send-btn:not(:disabled):hover {
+  background-color: #4338ca;
+}
+
+.send-btn:not(:disabled):active {
+  transform: scale(0.92);
+}
+
 
 /* ERROR */
 .error {
